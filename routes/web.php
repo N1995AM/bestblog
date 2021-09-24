@@ -20,4 +20,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
    
-Route::resource('tasks', App\Http\Controllers\TaskController::class);
+// Route::resource('tasks', App\Http\Controllers\TaskController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('tasks', \App\Http\Controllers\TaskController::class);
+
+    Route::resource('users', \App\Http\Controllers\UsersController::class);
+});
